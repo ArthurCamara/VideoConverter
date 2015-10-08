@@ -2,4 +2,25 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  h2 The #{title} will convert any video format to one that is web compatible.
+  p.
+    The video will be stored on Amazon AWS S3, and converted using the Zencoder plugin.
+    This website was built using node.js and Express
+  br
+  br
+  p#status First, upload your file:
+  input#file_input(type='file')
+    
+  script.
+    function initiate_upload() {
+      var files = document.getElementById('file_input').files;
+      var file = files[0]
+      if (file==null){
+        alert("No file was selected")
+      }
+    }
+  
+    (function() {
+      var filepicker = document.getElementById('file_input');
+      filepicker.onchange = initiate_upload;
+      })();
