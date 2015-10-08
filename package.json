@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm ./bin/www"
+    "start": "node ./bin/www"
   },
-  "engines" : {
+  "engines": {
     "node":"4.0.0"
   },
   "dependencies": {
