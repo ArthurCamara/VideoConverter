@@ -2,22 +2,22 @@ var express = require('express');
 var router = express.Router();
 
 var aws = require('aws-sdk');
+var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID;
+var AWS_SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+var S3_BUCKET = process.env.S3_BUCKET_NAME;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log("hi")
   res.render('index', { title: 'Samba Video Converter' });
 });
-router.get('/2', function(req, res){
-  console.log("hi2")
-})
+
 
 router.get('/sign_s3', function(req, res){
-  var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
-  var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
-  var S3_BUCKET = process.env.S3_BUCKET_NAME;
   console.log("hello, sweetie")
   aws.config.update({accessKeyId: AWS_ACCESS_KEY, secretAccessKey: AWS_SECRET_KEY});
+  console.log(AWS_SECRET_KEY)
+  console.log(AWS_ACCESS_KEY)
+  console.log(S3_BUCKET)
   var s3 = new aws.S3();
   var s3_params = {
     Bucket: S3_BUCKET,
@@ -39,7 +39,6 @@ router.get('/sign_s3', function(req, res){
       res.end();
     }
   })
-  
 })
 
 
