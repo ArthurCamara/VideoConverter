@@ -12,6 +12,21 @@ block content
   input#file_input(type='file')
     
   script.
+    function get_signed_request_to_AWS(file) {
+      var xhr = new XMLHttpRequest()
+      console.log("/sign_s3?file_name="+file.name+"&file_type="+file.type)
+      xhr.open("GET", "/sign_s3?file_name="+file.name+"&file_type="+file.type);
+      xhr.onreadystatechange = function(){
+        console.log("oi")
+        if(xhr.readyState == 4 && xhr.status == 200) {
+          var response = JSON.parse(xhr.responseText)
+          console.log(response)
+        }
+        else{
+          alert('Something went wrong when uploading the file to AWS')
+        }
+      }
+    } 
     function initiate_upload() {
       var files = document.getElementById('file_input').files;
       var file = files[0]
@@ -25,7 +40,9 @@ block content
         return;
       }
       //Try to upload the file to AWS, assyncronous.
+      get_signed_request_to_AWS(file)
     }
+  
   
     (function() {
       var filepicker = document.getElementById('file_input');
