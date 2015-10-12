@@ -15,9 +15,16 @@ block content
     function initiate_upload() {
       var files = document.getElementById('file_input').files;
       var file = files[0]
+      console.log(file.type.split('/')[0])
       if (file==null){
         alert("No file was selected")
+        return;
       }
+      if (file.type.split('/')[0]!="video"){
+        alert("file must be a video")
+        return;
+      }
+      //Try to upload the file to AWS, assyncronous.
     }
   
     (function() {
