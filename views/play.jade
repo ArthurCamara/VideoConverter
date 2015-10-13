@@ -1,0 +1,6 @@
+extends layout
+
+block content
+	h1 This is your video!
+	video#example_video_1.video-js.vjs-default-skin(controls='', preload='auto', width='640', height='264', data-setup='{"example_option":true}')
+		source(src='http://video-js.zencoder.com/oceans-clip.mp4', type='video/mp4')

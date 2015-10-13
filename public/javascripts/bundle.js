@@ -30,7 +30,7 @@ function upload_video_file(file,response) {
 		$(document).ready(
 			function(){
 				var percentage = ((e.loaded/e.total)*100).toFixed(2)
-				$('#percentage').text(percentage)
+				$('#percentage').text(percentage + "%")
 			}
 		)
 		document.getElementById('percentage').text = percentage
@@ -41,11 +41,20 @@ function upload_video_file(file,response) {
 	xhr.onload = function(){
 		//everything is a-ok!
 		if(xhr.status == 200){
-			document.getElementById("status").text = "File Uploaded!"
 			$.ajax({
+				datatype: "json",
 				type: 'POST',
 				url: "/transcode",
-				data: response
+				data: response,
+				success: function(result){
+					$(document).ready(
+						function(){
+							$('#status').text("File Uploaded. Wait for transcoding to end")
+							console.log(xhr.responseText)
+							// window.location.replace("/play");
+						}
+					)
+				}
 			});
 		}
 		else{

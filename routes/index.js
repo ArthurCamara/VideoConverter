@@ -11,6 +11,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Samba Video Converter' });
 });
 
+router.get('/play', function(req, res, next) {
+  res.render('play')
+})
 
 router.get('/sign_s3', function(req, res){
   console.log("hello, sweetie")
@@ -50,6 +53,11 @@ router.post("/transcode", function(req, res){
     var params = {Bucket: S3_BUCKET, Key: "output.mp4"}
     var url = s3.getSignedUrl('getObject', params)
     console.log(url)
+    var return_data = {
+      url: url
+    }
+    res.write(JSON.stringify(return_data));
+    res.end();
   })
   
 })
