@@ -17,6 +17,8 @@
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
     "aws-sdk": "*",
-    "cors": "~2.7.1"
+    "cors": "~2.7.1",
+    "zencoder": "*",
+    "socket.io": "~1.3.7"
   }
 }

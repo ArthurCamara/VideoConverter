@@ -15,9 +15,6 @@ router.get('/', function(req, res, next) {
 router.get('/sign_s3', function(req, res){
   console.log("hello, sweetie")
   aws.config.update({accessKeyId: AWS_ACCESS_KEY, secretAccessKey: AWS_SECRET_KEY});
-  console.log(AWS_SECRET_KEY)
-  console.log(AWS_ACCESS_KEY)
-  console.log(S3_BUCKET)
   var s3 = new aws.S3();
   var s3_params = {
     Bucket: S3_BUCKET,
@@ -41,5 +38,20 @@ router.get('/sign_s3', function(req, res){
   })
 })
 
+
+router.post("/transcode", function(req, res){
+  var Zencoder = require('zencoder')
+  var ZENCODER_KEY = process.env.ZENCODER_API_KEY;
+  var client = Zencoder(ZENCODER_KEY)
+  client.Job.create({input: req.body.url, "outputs": [{"url": "s3://"+S3_BUCKET+"/output.mp4"}]}, function(err, data){
+    if (err) {console.log(err); return;}
+    console.log(data)
+    var s3 = new aws.S3()
+    var params = {Bucket: S3_BUCKET, Key: "output.mp4"}
+    var url = s3.getSignedUrl('getObject', params)
+    console.log(url)
+  })
+  
+})
 
 module.exports = router;
