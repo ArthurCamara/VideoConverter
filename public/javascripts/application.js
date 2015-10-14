@@ -48,8 +48,12 @@ function upload_video_file(file,response) {
 				type: 'POST',
 				url: "/transcode",
 				data: response,
-				success: function(result, status, jqXHR){
-					console.log(result)
+				success: function(response){
+					var resp = JSON.parse(response)
+					console.log("resulted url:" + resp.url)
+					var encoded = encodeURIComponent(resp.url)
+					console.log("encoded URL: " + encoded)
+					window.location = '/play?url='+encoded
 				}
 			});
 		}

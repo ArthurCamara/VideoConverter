@@ -33,27 +33,28 @@ function upload_video_file(file,response) {
 				$('#percentage').text(percentage + "%")
 			}
 		)
-		document.getElementById('percentage').text = percentage
-		console.log(e.loaded/e.total)
 	}
 	console.log(response.signed_request)
 	xhr.setRequestHeader('x-amz-acl', 'public-read')
 	xhr.onload = function(){
 		//everything is a-ok!
 		if(xhr.status == 200){
+			$(document).ready(
+				function(){
+					$('#status').text("File Uploaded. Wait for transcoding to end")
+					console.log(xhr.responseText)
+				});
 			$.ajax({
 				datatype: "json",
 				type: 'POST',
 				url: "/transcode",
 				data: response,
-				success: function(result){
-					$(document).ready(
-						function(){
-							$('#status').text("File Uploaded. Wait for transcoding to end")
-							console.log(xhr.responseText)
-							// window.location.replace("/play");
-						}
-					)
+				success: function(response){
+					var resp = JSON.parse(response)
+					console.log("resulted url:" + resp.url)
+					var encoded = encodeURIComponent(resp.url)
+					console.log("encoded URL: " + encoded)
+					window.location = '/play?url='+encoded
 				}
 			});
 		}
