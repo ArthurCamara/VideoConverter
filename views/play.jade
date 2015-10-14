@@ -2,8 +2,6 @@ extends layout
 
 block content
 	h1 This is your video!
-	p=url
 	- var decodedURL = decodeURIComponent(url)
-	p=decodedURL
 	video#example_video_1.video-js.vjs-default-skin(controls='', preload='auto', width='640', height='264', data-setup='{"example_option":true}')
 		source(src = url, type='video/mp4')
