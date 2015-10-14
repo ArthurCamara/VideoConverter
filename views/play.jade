@@ -6,4 +6,4 @@ block content
 	- var decodedURL = decodeURIComponent(url)
 	p=decodedURL
 	video#example_video_1.video-js.vjs-default-skin(controls='', preload='auto', width='640', height='264', data-setup='{"example_option":true}')
-		source(src = decodedURL, type='video/mp4')
+		source(src = url, type='video/mp4')
